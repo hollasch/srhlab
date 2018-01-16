@@ -1,0 +1,26 @@
+#!/bin/bash
+# ==================================================================================================
+# Bash Fragments
+# ==================================================================================================
+
+function hello() {
+    echo "Hello world!"
+}
+
+function hello2() { echo "Hello"; echo "world2!"; }
+
+hello
+hello2
+
+if [ -d . ]; then
+    echo "Whereever you go, there you are."
+fi
+
+for word in Hello solar system!; {
+    echo "> " $word
+}
+
+if [[ "xyz" != "xyz" ]]; then echo "Something's wrong!"; fi
+
+if which -s git; then echo Git is installed.; fi
+if ! which -s git; then echo Git is not installed.; fi
