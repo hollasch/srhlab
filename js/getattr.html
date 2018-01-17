@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type"    content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
+    <title>Property vs. getAttribute</title>
+    <style type="text/css">
+    </style>
+</head>
+
+<body>
+
+  <p>
+    <a href="a/b">Link 1</a>
+    <a href="/x/y">Link 2</a>
+    <a href="http://qux.com/s/t">Link 3</a>
+    <a href="http://www.foo.com/s/t">Link 4</a>
+  </p>
+
+  <p>
+  <script type='text/javascript'>
+
+    var elems = document.body.getElementsByTagName('a');
+    var i, a;
+
+    for (i=0;  i < elems.length;  ++i) {
+      a = elems[i];
+      document.write('Link ' + i + ': a.getAttribute("href") is "' + a.getAttribute('href') + '"<br>\n');
+      document.write('Link ' + i + ': a.href                 is "' + a.href + '"<br><br>\n');
+    }
+
+    document.write('Setting href to "a/b".<br><br>\n');
+
+    elems[0].setAttribute('href','a/b');
+    elems[1].href = "a/b";
+
+    document.write('after setAttribute ("a/b"): getAtt is "' + elems[0].getAttribute('href') + '"<br>\n');
+    document.write('after setAttribute ("a/b"): a.href is "' + elems[0].href                 + '"<br><br>\n');
+
+    document.write('after element.href = "a/b": getAtt is "' + elems[1].getAttribute('href') + '"<br>\n');
+    document.write('after element href = "a/b": a.href is "' + elems[1].href                 + '"<br><br>\n');
+
+  </script>
+  </p>
+
+</body>
+</html>
+

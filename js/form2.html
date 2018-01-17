@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type"    content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
+    <title>JavaScript Forms</title>
+    <style type="text/css">
+    </style>
+</head>
+
+<body>
+
+<h1>Form</h1>
+
+<form name="tutform" onsubmit="return validateForm();" style="background-color:#FFF;">
+<table width="100%">
+    <tr>
+        <td>First Name:</td>
+        <td><input name="firstname"></td>
+        <td>Your Favorite Color:</td>
+        <td rowspan="3" valign="top">
+            <input type="radio" name="color" value="blue">Blue<br>
+            <input type="radio" name="color" value="red">Red<br>
+            <input type="radio" name="color" value="green">Green
+        </td>
+        <td rowspan="3" valign="top">
+            <input type="radio" name="color" value="yellow">Yellow<br>
+            <input type="radio" name="color" value="black">Black<br>
+            <input type="radio" name="color" value="other">Other
+        </td>
+    </tr>
+    <tr>
+        <td>Last Name:</td>
+        <td><input name="lastname"></td>
+    </tr>
+    <tr>
+        <td>Email Address:</td>
+        <td><input name="email"></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <input type="submit" value="Submit Form">
+            <input type="reset" value="Reset Form">
+        </td>
+        <td colspan="3" align="right"></td>
+    </tr>
+</table>
+</form>
+
+
+<script>
+    function validateForm() {
+        var form_object = document.forms.tutform;
+
+        var form_els = form_object.elements;
+
+        if (form_els.firstname.value == '') {
+            alert ('You must enter your first name!');
+            return false;
+        } else if (form_els.lastname.value == '') {
+            alert ('You must enter your last name!');
+            return false;
+        }
+
+        var radios   = form_els.color;
+        var favcolor = '';
+
+        for (var i=0;  i < radios.length;  ++i) {
+            if (radios[i].checked) {
+                favcolor = radios[i].value;
+            }
+        }
+
+        alert (
+            'First Name "' + form_els.firstname.value + '"\n' +
+            'Last Name  "' + form_els.lastname.value  + '"\n' +
+            'Email Addr "' + form_els.email.value     + '"\n' +
+            'Fav Color  "' + favcolor                 + '"'
+        );
+
+        return true;
+    }
+</script>
+
+</body>
+</html>
+
+

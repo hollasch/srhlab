@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<title>The Stochastic Urn</title>
+
+<style>
+    body { margin: 5% 8% 0 8%; }
+    p    { max-width: 32em; }
+
+    table#output {
+        border: solid 2px black;
+        border-collapse: collapse;
+    }
+
+    table td, table th {
+        border: solid 1px black;
+        border-collapse: collapse;
+        padding: .25em 1em;
+    }
+
+    th.whole, td.whole {
+        text-align: right;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
+        crossorigin="anonymous"></script>
+
+<body>
+
+<h1>The Stochastic Urn</h1>
+<p>This page demonstrates the stochasic urn model originally proposed by Eggenberger and Polya in
+1923 to model disease contagion. The general idea is that an urn contains two marbles, one red and
+one black. A random marble is removed from the urn, and then put back, along with an additional
+marble of the same color. As this cycle continues the proportion of red marbles to black marbles
+will converge to a stable value. However, this value is random, and will differ from run to run.</p>
+
+<p>Refresh this page to begin a new run.</p>
+
+<table id="output">
+    <tr><th class="whole">Runs
+        <th class="whole">Red
+        <th class="whole">Black
+        <th>Portion Red
+</table>
+
+<script type="text/javascript">
+
+var runs = 0;
+var maxRuns = 1e6;
+var countRed   = 1;
+var countBlack = 1;
+
+var $output = $('#output');
+
+var log = function (x) {
+    return Math.log(x) / Math.log(2);
+};
+
+var lastReport = -1;
+
+var report = function () {
+    if (runs === lastReport) return;
+    lastReport = runs;
+
+    var ratio = countRed / (countRed + countBlack);
+    var $row = $('<tr>');
+
+    $row.append('<td class="whole">' + runs       + '</td>')
+        .append('<td class="whole">' + countRed   + '</td>')
+        .append('<td class="whole">' + countBlack + '</td>')
+        .append('<td>' + ratio + '</td>');
+    $output.append($row);
+};
+
+while (runs < maxRuns) {
+
+    ++runs;
+
+    var r = Math.random();
+    if (r < (countRed / (countRed + countBlack)))
+        ++ countRed;
+    else
+        ++ countBlack;
+
+    if (Math.floor(log(runs-1)) !== Math.floor(log(runs))) {
+        report();
+    }
+}
+
+report();
+
+</script> </body>

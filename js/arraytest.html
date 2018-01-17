@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<!-- This page tests the combination of index and associative arrays. -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <title>Fibonacci Sequence</title>
+
+    <style type="text/css">
+      body { margin: 5% 8% 0 8%; }
+    </style>
+</head>
+
+<body>
+
+  <script type="text/javascript">
+    var students = ['Sam', 'Joe', 'Sue', 'Beth'];
+    
+    students['Sam'] = 90;
+    students['Joe'] = 85;
+    students['Sue'] = 94;
+    students['Beth'] = 82;
+    
+    document.write ('<p>There are ' + (students.length) + ' students: ' + students.join(', ') + '.</p>');
+    
+    for (var i=0; i<students.length; i++) {
+      document.write (students[i] + "'s grade is: " + students[students[i]] + '<br>');
+    }
+  </script>
+
+</body>
+</html>

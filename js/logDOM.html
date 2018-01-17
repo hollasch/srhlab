@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title></title>
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+  <h1>Log Output in JavaScript</h1>
+  <pre id="output"></pre>
+
+  <script>
+    function printLine()
+    {
+        var args = Array.prototype.slice.call(arguments, 0);
+        document.getElementById('output').innerHTML += args.join(" ") + "\n";
+    }
+
+    function log()
+    {
+        var args = Array.prototype.slice.call(arguments, 0);
+        var outString = "";
+        args.forEach (function(arg) {
+            if (outString !== "")
+                outString += " ";
+            if (arg === undefined)
+                outString += "<span style='color:red'>undefined</span>";
+            else
+                outString += arg;
+        });
+        document.getElementById('output').innerHTML += outString + "\n";
+    }
+
+    log ("Hello world.");
+    log ("Another line.");
+    printLine ('undefined =', undefined);
+    log ('undefined =', undefined);
+  </script>
+
+</body>
+</html>

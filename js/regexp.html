@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title></title>
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+  <h1>Regular Expressions in JavaScript</h1>
+  <pre id="output"></pre>
+
+  <script>
+    function printLine()
+    {
+        var args = Array.prototype.slice.call(arguments, 0);
+        document.getElementById('output').innerHTML += args.join(" ") + "\n";
+    }
+
+    function log()
+    {
+        var args = Array.prototype.slice.call(arguments, 0);
+        var outString = "";
+        args.forEach (function(arg) {
+            if (outString !== "")
+                outString += " ";
+            if (arg === undefined)
+                outString += "<span style='color:red'>undefined</span>";
+            else
+                outString += arg;
+        });
+        document.getElementById('output').innerHTML += outString + "\n";
+    }
+
+    var re1 = /ab+c/g;
+    var re2 = new RegExp("ab+c", "g");
+    var str1 = "Mary had a little lamb.";
+    var re3 = /..tt../;
+
+    log ('str1 = "' + str1 + '"');
+    log ('/a./g.exec(str1): "' + /a./g.exec(str1) + '"');
+    log ('after s/lamb/dog/: "' + str1.replace(/lamb/, 'dog') + '"');
+    log ('Test for Mary:', re3.test(str1, /Mary/));
+    log ('Position of /..tt../:', str1.search(re3));
+    log ('Match of /..tt../:', str1.match(re3));
+    log ('Match of /a./g:', str1.match(/a./g));
+    log ('Replace /^(\w+).*little (\w+).*/ with "$2 belongs to $1":',
+        str1.replace(/^(\w+).*little (\w+).*/, "$2 belongs to $1"));
+    log ('str1 changed? "' + str1 + '"');
+    log ('"hello, there    ,    you  ,     goof" split on /\\s*,\\s*/:',
+        "hello, there    ,    you  ,     goof".split(/\s*,\s*/));
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!doctype HTML>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <title>Playing with Callee</title>
+
+    <style type="text/css">
+      body { margin: 5% 8% 0 8%; }
+    </style>
+</head>
+
+<body>
+
+  <p>
+  <script type="text/javascript">
+    function A() { B(); }
+    function B() { C(); }
+    function C () {
+      document.write ('\x3Cp>Function is ' + arguments.callee + '\x3C/p>\n');
+      document.write ('\x3Cp>Caller is ' + arguments.callee.caller + '\x3C/p>\n');
+      document.write ('\x3Cp>Caller caller is ' + arguments.callee.caller.caller + '\x3C/p>\n');
+    }
+
+    A();
+  </script>
+  </p>
+
+</body>
+</html>

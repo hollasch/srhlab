@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<!-- This page tests the combination of index and associative arrays. -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <title>Fibonacci Sequence</title>
+
+    <style type="text/css">
+      body { margin: 5% 8% 0 8%; }
+    </style>
+</head>
+
+<body>
+
+  <p>This script tests the scoping of variables declared in the precondition of a for loop.</p>
+
+  <p>
+  <script type="text/javascript">
+
+    var i=137;
+    document.write ('pre  i = ' + i + '<br>\n');
+
+    for (var i=0;  i < 10;  ++i) {
+      document.write ('&nbsp; loop i = ' + i + '<br>\n');
+    }
+
+    document.write ('pre  i = ' + i + '<br>\n');
+    i=237;
+    document.write ('post i = ' + i + '<br>\n');
+
+  </script>
+  </p>
+
+  Conclusion: for-loop precondition variables are defined in the enclosing function scope.
+
+</body>
+</html>

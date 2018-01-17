@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Cascading Lookup in JavaScript</title>
+<body>
+  <h1>Cascading Lookup in JavaScript</h1>
+  <pre id="output"></pre>
+
+<script>
+function lookup (path, cascade) {
+    // Look up object values from a path list in cascaded fashion.
+    //
+    // Usage: lookup (pathList, [object1, object2, object3 ...])  
+    //
+    // The pathList argument is an array of string or integer keys, such as
+    // ['foo','bar',17]. Alternatively, it may be a single string, in the form
+    // "foo.bar.17". Note that field names with embedded periods are not
+    // supported when using string paths. Also note that array lookups may use
+    // "[n]" notation instead of the simpler ".n" notation. For example,
+    // "foo.bar[17]" or ["foo", "bar", "[17]"].
+    //
+    // The cascade is an array of arrays/objects from which to look up the
+    // specified path. If the path does not exist for any of the objects, then
+    // lookup returns undefined, otherwise it returns the value from the first
+    // object for which it is defined.
+
+    // Ensure that the cascade is an array. This call works on ECMAScript 5.
+    if (!Array.isArray(cascade))
+        cascade = [cascade];
+
+    if (typeof(path) === "string")
+        path = path.split('.');
+
+    // If the path is empty, then return undefined.
+    if (path.length < 1)
+        return undefined;
+
+    // Verify that none of the path components is empty.
+    var processedPath = [];
+    var pathIndex;
+    for (pathIndex = 0;  pathIndex < path.length;  ++pathIndex) {
+        var subPath = path[pathIndex];
+        if (subPath === '') return undefined;
+        if (typeof(subPath) !== 'string')
+            processedPath.push (subPath);
+        else {
+            var indexToDot = subPath.replace (/\[(\d+)\]/g, '.$1');
+            indexToDot = indexToDot.replace (/^\./, '');
+            Array.prototype.push.apply (processedPath, indexToDot.split('.'));
+        }
+    }
+
+    path = processedPath;
+    
+    var result;
+    
+    // Scan through each object in the cascade.
+    var objIndex = 0;
+    while ((result === undefined) && (objIndex < cascade.length)) {
+        result = cascade[objIndex];
+
+        // Scan through each key, aborting on undefined values.
+        var pathIndex = 0;
+        while ((result !== undefined) && (pathIndex < path.length)) {
+            result = result[path[pathIndex]];
+            ++ pathIndex;
+        }
+        
+        ++ objIndex;
+    }
+    
+    return result;
+}
+
+
+// _____________________________________________________________________________
+// Unit Tests
+
+var failCount = 0;
+var testCount = 0;
+
+var obj1 = { baz: 37 };
+
+var obj2 = { foo: 12, zap: "hello" };
+
+var obj3 = {
+    foo: { qux: 11, bar: ['a', 'b', 'c'] },
+    zap: { bog: [ { fiz: { bup: 'koz' } } ] }
+};
+
+var obj4 = [
+    { tup: 118 },
+    { tap: 'frotz' },
+    [ { rap: 1.2, rup: true, rip: null } ]
+];
+
+var cascade = [obj1, obj2, obj3, obj4];
+
+expect(['foo']             /* No Cascade */, undefined);
+expect('foo',                          obj1, undefined);
+expect('foo',                          obj2, 12);
+expect([22.8],                      cascade, undefined);
+expect([],                          cascade, undefined);
+expect([false],                     cascade, undefined);
+expect('1.tap',                     cascade, 'frotz');
+expect('[1].tap',                   cascade, 'frotz');
+expect([''],                        cascade, undefined);
+expect('',                          cascade, undefined);
+expect('.',                         cascade, undefined);
+expect('foo.',                      cascade, undefined);
+expect('.foo',                      cascade, undefined);
+expect(["foo"],                     cascade, 12);
+expect(["foo","bar"],               cascade, ['a','b','c']);
+expect('foo.bar',                   cascade, ['a','b','c']);
+expect(["foo","bar",0],             cascade, 'a');
+expect('foo.bar.0',                 cascade, 'a');
+expect(['foo','bar','xxx'],         cascade, undefined);
+expect('foo.bar.xxx',               cascade, undefined);
+expect([0,'tup'],                   cascade, 118);
+expect([2,0,'rap'],                 cascade, 1.2);
+expect([2,0,'rup'],                 cascade, true);
+expect('',                          cascade, undefined);
+expect(['zap','bog',0,'fiz','bup'], cascade, 'koz');
+expect('zap.bog.0.fiz.bup',         cascade, 'koz');
+expect([2,0,'rip'],                 cascade, null);
+expect('2.0.rip',                   cascade, null);
+expect(['foo','bar','bogus'],       cascade, undefined);
+expect('foo.bar.bogus',             cascade, undefined);
+expect(['foo', 'bar', '[0]'],       cascade, 'a');
+expect('foo.bar[0]',                cascade, 'a');
+expect('zap.bog[0].fiz.bup',        cascade, 'koz');
+
+if (failCount > 0)
+    log ("\n" + failCount, (failCount==1 ? "test" : "tests"), "failed.");
+log (testCount - failCount, 'tests passed.')
+
+
+// Test Support
+
+function log()
+{
+    var args = Array.prototype.slice.call(arguments, 0);
+    var outString = "";
+    args.forEach (function(arg) {
+        if (outString !== "")
+            outString += " ";
+        if (arg === undefined)
+            outString += "<span style='color:red'>undefined</span>";
+        else
+            outString += arg;
+    });
+    document.getElementById('output').innerHTML += outString + "\n";
+}
+
+function expect(path, cascade, expectedResult) {
+
+    ++ testCount;
+
+    var result         = JSON.stringify(lookup(path,cascade)) || 'undefined';
+    var expectedResult = JSON.stringify(expectedResult) || 'undefined';
+    
+    if (result !== expectedResult) {
+        ++ failCount;
+        log ("Failure for test", testCount + ':',
+             "Lookup("+path+")",
+             "returned '" + result + "',", "expected", expectedResult);
+    }
+}
+
+</script>
+
+</body>
+</html>

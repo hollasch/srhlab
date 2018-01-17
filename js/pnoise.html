@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
+
+    <title>Random Noise</title>
+
+    <style type="text/css">
+
+      body { background: #40403c; margin: 0; }
+
+      canvas#test {
+        display: block;
+        margin:  100px auto 0 auto;
+        border:  solid 8px #555;
+      }
+
+    </style>
+</head>
+
+<body>
+
+<canvas id="test" width="800" height="800">
+  <p>Canvas is unsupported in this browser.</p>
+</canvas>
+
+<script>
+
+  var fPerlinInit = true;
+  var cGridSize = 256;
+  var p = new Array();
+  var grad2 = new Array();
+
+  function s_curve(t)  { return t*t*(3-2*t); }    // Smoothing function over [0,1] using 3t^2 - 2t^3.
+  function lerp(t,a,b) { return a + t*(b-a); }    // Linearly Interpolate a->b by t.
+
+  // Initialize the Perlin Noise Data Structures.
+
+  function PerlinInit() {
+
+    for (var i=0;  i < cGridSize;  ++i) {
+      p[i] = i;
+
+      // Allocate and randomly initialize the next grid element.
+
+      grad2[i] = new Array(2);
+      grad2[i][0] = Math.random();
+      grad2[i][1] = Math.random();
+
+      // Normalize the grid gradient.
+
+      var s = Math.sqrt(grad2[i][0]*grad2[i][0] + grad2[i][1]*grad2[i][1]);
+      grad2[i][0] /= s;
+      grad2[i][1] /= s;
+    }
+
+    // Randomly shuffle the p array.
+
+    for (var i=0;  i < cGridSize;  ++i) {
+      var j = Math.floor(Math.random() * cGridSize);
+      var t = p[i];
+      p[i] = p[j];
+      p[j] = t;
+    }
+
+    for (var i=0;  i < cGridSize+2;  ++i) {
+      p[cGridSize+i] = p[i];
+
+      grad2[cGridSize+i]    = new Array(2);
+      grad2[cGridSize+i][0] = grad2[i][0];
+      grad2[cGridSize+i][1] = grad2[i][1];
+    }
+  }
+
+  // Two Dimensional Perlin Noise Function
+
+  function noise2 (x,y) {
+    if (fPerlinInit) {
+      fPerlinInit = false;
+      PerlinInit();
+    }
+
+    var t, bx0,by0, bx1,by1, rx0,ry0, rx1,ry1;
+    var i,j, b00,b10,b01,b11, sx,sy, u,v, a,b, n;
+
+    t  = x + 0x1000;
+    ti = Math.floor(t);
+    bx0 = ti & 0xff;
+    bx1 = (bx0+1) & 0xff;
+    rx0 = t - ti;
+    rx1 = rx0 - 1;
+
+    t  = y + 0x1000;
+    ti = Math.floor(t);
+    by0 = ti & 0xff;
+    by1 = (by0+1) & 0xff;
+    ry0 = t - ti;
+    ry1 = ry0 - 1;
+
+    i = p[bx0];
+    j = p[bx1];
+
+    b00 = p[i+by0];
+    b10 = p[j+by0];
+    b01 = p[i+by1];
+    b11 = p[j+by1];
+
+    sx = s_curve(rx0);
+    sy = s_curve(ry0);
+
+    u = rx0 * grad2[b00][0] + ry0 * grad2[b00][1];
+    v = rx1 * grad2[b10][0] + ry0 * grad2[b10][1];
+
+    a = lerp(sx,u,v);
+
+    u = rx0 * grad2[b01][0] + ry1 * grad2[b01][1];
+    v = rx1 * grad2[b11][0] + ry1 * grad2[b11][1];
+  
+    b = lerp(sx,u,v);
+
+    n = lerp(sy,a,b);
+
+    return n;
+  }
+
+  var canvas = document.getElementById('test');
+  var ctx    = canvas.getContext('2d');         // Grab the 2D rendering context.
+
+  // Clear the canvas.
+
+  ctx.fillStyle = "rgb(32,0,64)";
+  ctx.fillRect (0,0, canvas.width, canvas.height);
+
+  // Create new pixel data.
+
+  var imgd = ctx.createImageData(canvas.width,canvas.height);
+  var pix  = imgd.data;
+  var offset;
+  var pN;             // Perlin Noise Value
+
+  var maxPN = -1e6;
+  var minPN =  1e6;
+
+  // Loop over each scanline, each pixel, each component.
+
+  for (var y=0;  y < canvas.height;  ++y) {
+    for (var x=0;  x < canvas.width;  ++x) {
+
+      pN = 0;
+
+      for (var power=256, amp=1;  power >= 1;  power /= 2, amp /= 2) {
+        pN += noise2(x/power, y/power) * amp;
+      }
+
+      if (pN > maxPN) { maxPN = pN; }
+      if (pN < minPN) { minPN = pN; }
+
+      pN /= 2 - 1/128;
+
+      if (pN < 0)
+        pN = 0;
+      else
+        pN = 255;
+
+      //pN = (pN+1) * 0.5; 
+
+      offset = (x + canvas.width*y) * 4;    // Get pixel offset.
+
+      pix[offset+0] =       // Red
+      pix[offset+1] =       // Green
+      pix[offset+2] = pN;   // Blue
+
+      pix[offset+3] = 255;  // Alpha
+    }
+  }
+
+  // Blit the result onto the canvas.
+
+  ctx.putImageData (imgd, 0,0);
+
+  //alert ('MaxPN = ' + maxPN + ', MinPN = ' + minPN);
+
+</script>
+
+</body>
+</html>
