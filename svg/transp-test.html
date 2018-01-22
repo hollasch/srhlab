@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>SVG in an HTML Page</title>
+
+    <style type='text/css'>
+        h1 { color: white; }
+        body { background: url('1984_pixar.jpg');
+    </style>
+</head>
+
+<body>
+
+<h1>SVG Transparency Tests</h1>
+
+<svg id="test" width='800' height='800' xmlns='http://www.w3.org/2000/svg' version='1.1'>
+  <defs>
+    <linearGradient id="grad" gradientUnits="userSpaceOnUse" x1='550' y1='550' x2='750' y2='750' >
+      <stop offset='0'    stop-color='#000000' />
+      <stop offset='.33'  stop-color='#ffffff' />
+      <stop offset='.67'  stop-color='#ff0000' />
+      <stop offset='1'    stop-color='#808080' />
+    </linearGradient>
+
+    <filter id="fBlur" x='0' y='0'>
+      <feGaussianBlur in='SourceGraphic' stdDeviation='15' />
+    </filter>
+
+    <filter id="blurImg" x='0' y='0'>
+      <feImage xlink:href='dr-evil.jpg' result='im3' />
+      <feGaussianBlur in=xlink:href='dr-evil.jpg' stdDeviation='5' />
+    </filter>
+
+    <filter id='fMult'>
+      <feBlend mode='multiply' in2='BackgroundImage' in='SourceGraphic' />
+    </filter>
+
+    <filter id='fMult2'>
+      <feImage xlink:href="dr-evil.jpg" result="im1" />
+      <feImage xlink:href="1984_pixar.jpg" result="im2" />
+      <feBlend mode='multiply' in='im2' in2='im1' />
+    </filter>
+
+
+  </defs>
+
+  <circle cx='175' cy='175' r='150' fill='red' opacity='0.7' />
+  <circle cx='175' cy='475' r='150' fill='red' opacity='0.7' filter='url(#fBlur)' />
+  <rect   x='500' y='50' width='200' height='200' fill='#118844' filter='url(#blurImg)' />
+  <rect   x='500'  y='400'  width='200' height='200' filter='url(#fMult2)' />
+  <!--
+  <rect x='550'  y='550'  width='200' height='200' style="fill:url(#grad); filter: url(#fMult);" />
+  <rect x='550'  y='550'  width='200' height='200' fill='#8822aa' opacity='0.7' />
+  <rect x='550'  y='550'  width='200' height='200' fill='#8822aa' opacity='0.7' filter='url(#fMult)' />
+  <g style="enable-background:new">
+    <rect x='550'  y='550'  width='200' height='200' filter='url(#fMult2)' />
+  </g>
+  -->
+</svg>
+
+</body>
+</html>

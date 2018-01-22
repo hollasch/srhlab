@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="100%" height="100%" onload="startup(evt)"
+>
+<script>
+<![CDATA[
+  var  svgDocument;
+  var  bottomedge  = null;
+  var  gridWidth   = 20;
+  var  gridHeight  = 20;
+  var  rightedge   = null;
+  var  running     = true;
+  var  svgns       = 'http://www.w3.org/2000/svg';
+  var  startTimeMS = 0;
+  var  tileWidth   = 20;
+  var  tileHeight  = 20;
+  var  tscale      = 0.20;
+  var  xlow        = -200;
+  var  xhigh       = 100;
+  var  xlinkns     = "http://www.w3.org/1999/xlink";
+
+  function getDisplaySize()
+  {
+    // function due to G. Wade Johnson <svg-developers.yahoogroups.com>
+    // Date: Mon, 12 Dec 2005 20:57:49 -0600
+    // Subject: Re: [svg-developers] Screen extents
+
+    var extents = null;
+
+    try {
+      var view = document.documentElement.viewport;
+      extents = { width:  view.width,
+                  height: view.height };
+    }
+    catch(e) {
+      extents = { width:  window.innerWidth,
+                  height: window.innerHeight };
+    }
+    return extents;
+  }
+
+
+  function currentTime()
+  {
+    var currTime = new Date();
+    return (currTime.getTime() - startTimeMS) / 1000;
+  }
+
+
+  function tileId(i,j)
+  {
+    return 'tile' + (i*gridWidth + j);
+  }
+
+
+  function tileX(i,j) { return i*(tileWidth-1);  }
+  function tileY(i,j) { return j*(tileHeight-1); }
+
+
+  function createGrid()
+  {
+    var grid = svgDocument.getElementById ('grid');
+
+    for (var j=0; j < gridHeight; ++j) {
+      for (var i=0; i < gridWidth; ++i) {
+
+        var tile = svgDocument.createElementNS (svgns, 'image');
+
+        tile.setAttributeNS (xlinkns, "href", "TestTile.png");
+        tile.setAttribute   ('id',     tileId(i,j));
+        tile.setAttribute   ('width',  tileWidth);
+        tile.setAttribute   ('height', tileHeight);
+        tile.setAttribute   ('x',      tileX(i,j));
+        tile.setAttribute   ('y',      tileY(i,j));
+
+        grid.appendChild (tile);
+      }
+    }
+  }
+
+
+  function tick()
+  {
+    var t = currentTime();
+
+    for (var j=0; j < gridHeight; ++j) {
+      for (var i=0; i < gridWidth; ++i) {
+        var tile = svgDocument.getElementById (tileId(i,j));
+        tile.setAttribute ('x', 200 + tileX(i,j) + (200 * Math.sin(t * tscale)));
+        tile.setAttribute ('y', 200 + tileY(i,j) + (200 * Math.cos(t * tscale)));
+      }
+    }
+  }
+
+  function animate() {
+    if (running) {
+      tick();
+      window.setTimeout ("animate()",10);
+    }
+  }
+
+  function startup(evt)
+  {
+    var startDate = new Date(),
+        A = 0;
+
+    startTimeMS = startDate.getTime();
+
+    var obj = evt.target;
+    obj.setAttribute ("onclick", "running = !running; animate();");
+
+    svgDocument = obj.ownerDocument;
+
+    createGrid();
+
+    A = getDisplaySize();
+    rightedge  = A.width;
+    bottomedge = A.height - 40;
+
+    animate();
+  }
+
+//]]>
+</script>
+
+<rect  height="100%" width="100%" opacity="1" fill="#000000"/>
+
+<g id="grid"></g>
+
+</svg>
