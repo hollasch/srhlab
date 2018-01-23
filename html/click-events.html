@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Mouse Clicks Handling Example</title>
+  <style type="text/css">
+
+    body {
+      margin: 4em 0 0 10%;
+    }
+
+    p { font-family: sans-serif; }
+
+    div.comment {
+      max-width: 40em;
+      margin: 1em 0 2em 0;
+    }
+
+    div.target {
+      padding: 1em;
+    }
+
+    #div1 {
+      width:  200px;
+      height: 400px;
+      background-color: #ff6666;
+    }
+
+    #div2 {
+      width:  250px;
+      height: 250px;
+      margin: 40px 0 0 40px;
+      background-color: #44cc44;
+    }
+
+    #div3 {
+      width:  400px;
+      height: 100px;
+      margin: 40px 0 0 40px;
+      background-color: #8888ff;
+    }
+  </style>
+  <script type="text/javascript">
+      window.onload = function() {
+
+          var div1 = document.querySelector("#div1");
+          var div2 = document.querySelector("#div2");
+          var div3 = document.querySelector("#div3");
+
+          var useCapture = false;
+          var stopAt     = 2;
+
+          var handlePropagate  = function(event, level) {
+              if (stopAt === level) {
+                  alert("Stopping propagation at level " + level);
+                  event.stopPropagation();
+              }
+          };
+
+          div1.addEventListener("click", function (event) {
+              alert("You clicked on div 1.");
+              handlePropagate(event, 1);
+          }, useCapture);
+
+          div2.addEventListener("click", function (event) {
+              alert("You clicked on div 2.");
+              console.log(event);
+              handlePropagate(event, 2);
+          }, useCapture);
+
+          div3.addEventListener("click", function (event) {
+              alert("You clicked on div 3.");
+              console.log(event);
+              handlePropagate(event, 3);
+          }, useCapture);
+      }
+  </script>
+</head>
+
+<body>
+  <div class="comment">
+    <p>This page demonstrates how to catch and handle click events on elements in HTML.</p>
+    <p>Notice that clicking on any DOM child element also propagates to parent elements, regardless
+    of whether the click point hits the visible parent element.</p>
+  </div>
+
+  <div id="div1" class="target">
+    Div 1
+    <div id="div2" class="target">
+        Div 2
+        <div id="div3" class="target">
+            Div 3
+        </div>
+    </div>
+  </div>
+</body>
+</html>

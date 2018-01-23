@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+
+    .bar {
+      fill: steelblue;
+    }
+
+    .bar:hover {
+      fill: brown;
+    }
+
+    .axis {
+      font: 10px sans-serif;
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+
+    .x.axis path {
+      display: none;
+    }
+
+    .x.axis text {
+        cursor: pointer;    // Normal hover on text is a text (insertion caret) cursor.
+    }
+
+    .y.axis text {
+        cursor: pointer;    // Normal hover on text is a text (insertion caret) cursor.
+    }
+
+    div.description {
+        font-family: sans-serif;
+        max-width: 60ex;
+    }
+
+    div.graph {
+        position: relative;
+    }
+
+    div.menu {
+        position: absolute;
+        background-color: #ddbb33;
+        visibility: hidden;
+        padding: 0.25em 0.5em;
+        cursor: pointer;
+    }
+
+  </style>
+
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+
+  <script type="text/javascript">
+    window.onload = function() {
+        var margin = {top: 20, right: 20, bottom: 30, left: 40},
+        width  = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+        var letterFreq = [
+            { letter: "Aa", frequency: .08167 },
+            { letter: "Bb", frequency: .01492 },
+            { letter: "Cc", frequency: .02782 },
+            { letter: "Dd", frequency: .04253 },
+            { letter: "Ee", frequency: .12702 },
+            { letter: "Ff", frequency: .02288 },
+            { letter: "Gg", frequency: .02015 },
+            { letter: "Hh", frequency: .06094 },
+            { letter: "Ii", frequency: .06966 },
+            { letter: "Jj", frequency: .00153 },
+            { letter: "Kk", frequency: .00772 },
+            { letter: "Ll", frequency: .04025 },
+            { letter: "Mm", frequency: .02406 },
+            { letter: "Nn", frequency: .06749 },
+            { letter: "Oo", frequency: .07507 },
+            { letter: "Pp", frequency: .01929 },
+            { letter: "Qq", frequency: .00095 },
+            { letter: "Rr", frequency: .05987 },
+            { letter: "Ss", frequency: .06327 },
+            { letter: "Tt", frequency: .09056 },
+            { letter: "Uu", frequency: .02758 },
+            { letter: "Vv", frequency: .00978 },
+            { letter: "Ww", frequency: .02360 },
+            { letter: "Xx", frequency: .00150 },
+            { letter: "Yy", frequency: .01974 },
+            { letter: "Zz", frequency: .00074 }
+        ];
+
+        var x = d3.scale.ordinal()
+            .rangeRoundBands([0, width], .1);
+
+        var y = d3.scale.linear()
+            .range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+            .scale(x)
+            .orient("bottom");
+
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left")
+            .ticks(10, "%");
+
+        // The graph div is a reference for the entire graph on which to hang the context menu.
+        var graph = d3.select("body")
+            .append("div").classed("graph", true);
+
+        var svg = graph.append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var menu = graph.append("div").classed("menu", true)
+            .on("click", function(data) {
+                menu.style({visibility: "hidden"});
+            });
+
+        x.domain(letterFreq.map(function(d) { return d.letter; }));
+        y.domain([0, d3.max(letterFreq, function(d) { return d.frequency; })]);
+
+        var xAxisItems = svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis);
+
+        var yAxisItems = svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis);
+
+        yAxisItems
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", ".71em")
+            .style("text-anchor", "end")
+            .text("Frequency");
+
+        function handleAxisMenu(type, data) {
+            d3.event.preventDefault();
+            menu
+                .text("Hit " + type + "-axis item " + data + ".")
+                .style({
+                    visibility: "visible",
+                    left: d3.event.layerX + "px",
+                    top:  d3.event.layerY + "px",
+                });
+            return false;
+        };
+ 
+        // Set up click handlers on all of the X-axis tick text labels.
+        xAxisItems.selectAll(".tick")
+            .on("contextmenu", function(data, index) {
+                handleAxisMenu("x", data + " [" + index + "]");
+            });
+
+        // Set up click handlers on all of the Y-axis tick text labels.
+        yAxisItems.selectAll(".tick")
+            .on("contextmenu", function(data, index) {
+                handleAxisMenu("y", data + " [" + index + "]");
+            });
+
+        svg.selectAll(".bar")
+            .data(letterFreq)
+          .enter().append("rect")
+            .attr("class", "bar")
+            .attr("x", function(d) { return x(d.letter); })
+            .attr("width", x.rangeBand())
+            .attr("y", function(d) { return y(d.frequency); })
+            .attr("height", function(d) { return height - y(d.frequency); });
+    }
+  </script>
+</head>
+
+<body>
+
+    <div class="description">
+        <p>The following example has click handling for all axis labels.</p>
+    </div>
+
+</body>
+
+</html>
