@@ -1,0 +1,12 @@
+# Git ignore file for Scala in SRH Labs
+
+# Generated Files
+
+*/lib_managed/
+
+# Target output directories
+
+*/target
+*/*/target
+*/*/*/target
+*/*/*/*/target
