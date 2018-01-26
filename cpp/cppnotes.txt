@@ -1,0 +1,45 @@
+
+class CClass : protected CBase
+{
+  public:
+    CClass() : m_data(7) { }
+    ~CClass() { /* dtor stuff */ }
+
+    virtual std::string toString() const {
+        return std::string("CClass(") + std::to_string(m_data) + std::string(")");
+    }
+
+  private:
+    int m_data;
+};
+
+// Simple string / vector
+std::string str;
+std::cout << "Hello world." << std::endl;
+std::vector<char> array_of_chars;
+
+// C++11 pointer types.
+std::unique_ptr<CClass> c(new CClass);         // RAII: deleted on scope exit.
+std::shared_ptr<CClass> c(new CClass);         // Refcounted pointer: deleted on final scope exit.
+
+// More on Vectors
+std::vector<char> msg = {'H', 'e', 'l', 'l', 'o'};
+for (std::vector<char>::iterator it = msg.begin(); it != msg.end(); ++it) { std::cout << *it; }
+std::cout << std::endl;
+for (std::vector<char>::const_iterator it = msg.cbegin(); it != msg.cend(); ++it) { std::cout << *it; }
+std::cout << std::endl;
+
+// decltype
+for (decltype(msg.cbegin()) it = msg.cbegin(); it != msg.cend(); ++it) { std::cout << *it; }
+std::cout << std::endl;
+
+// Auto
+auto msg = std::vector<char>{'H', 'e', 'l', 'l', 'o'};
+for (auto it = msg.cbegin(); it != msg.cend(); ++it) { std::cout << *it; }
+std::cout << std::endl;
+
+// Range-based for loop
+for (char ch : msg) { std::cout << ch; }
+
+// Sorting
+std::sort(msg.begin(), msg.end());
