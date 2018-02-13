@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title></title>
+  <style type="text/css">
+    body    { margin: 1em 5% 0 5%; }
+    text    { font: bold 48px monospace; }
+    .enter  { fill: green; }
+    .update { fill: #333; }
+    p       { max-width: 36em; }
+    svg     { background: #f0f8e4; border: solid 4px #86bb70; }
+  </style>
+</head>
+
+<body>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+  //----------------------------------------------------------------------------
+  var alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+
+  var width = 960;
+  var height = 500;
+
+  var svg = d3.select("body")
+    .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+    .append("g")
+      .attr("transform", "translate(32," + (height / 2) + ")");
+
+  function update(data) {
+
+    // DATA JOIN
+    // Join new data with old elements, if any.
+    var text = svg.selectAll("text")
+      .data(data, function(d) { return d; });
+
+    // UPDATE
+    // Update old elements as needed.
+    text.attr("class", "update");
+
+    // ENTER
+    // Create new elements as needed.
+    text.enter().append("text")
+      .attr("class", "enter")
+      .attr("dy", ".35em")
+      .text(function(d) { return d; });
+
+    // ENTER + UPDATE
+    // Appending to the enter selection expands the update selection to include
+    // entering elements; so, operations on the update selection after appending to
+    // the enter selection will apply to both entering and updating nodes.
+    text.attr("x", function(d, i) { return i * 32; })
+
+    // EXIT
+    // Remove old elements as needed.
+    text.exit().remove();
+  }
+
+  // The initial display.
+  update(alphabet);
+
+  // Grab a random sample of letters from the alphabet, in alphabetical order.
+  setInterval(function() {
+    update (
+      d3.shuffle(alphabet)
+        .slice(0, Math.floor(Math.random() * alphabet.length))
+        .sort());
+  }, 1500);
+
+  //----------------------------------------------------------------------------
+</script>
+<p>See <a href="http://bl.ocks.org/mbostock/3808221">http://bl.ocks.org/mbostock/3808221</a></p>
+
+<p>By adding a key to the data-join, letters that are already displayed are put in the update
+selection. Now updates can occur anywhere in the array, depending on the overlap between the old
+letters and the new letters. The text content only needs updating on enter because the mapping from
+letter to element never changes; however, the x-position of the text element must now be recomputed
+on update as well as enter.</p>
+
+<p>It'll be easier to see what's going on when we add animated transitions next!</p>
+
+<p>Next: <a href="data3.html">Update Transitions</a></p>
+
+</body>
+</html>
+<!-- vim: set shiftwidth=2: -->

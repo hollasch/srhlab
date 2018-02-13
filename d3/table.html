@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<!-- vim: set shiftwidth=4: -->
+<html lang="en">
+
+<!-- =========================================================================================== -->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <title>D3 Table Example</title>
+  <style type="text/css">
+      body    { margin: 1em 5% 0 5%; }
+      .enter  { fill: green; }
+      .update { fill: #333; }
+      .exit   { fill: red; }
+      p { max-width: 36em; }
+      table   {
+          /*border: solid 4px blue;*/
+          border-collapse: collapse;
+      }
+
+      th, td {
+          border: solid 2pt #888888;
+          padding: 0.1em 0.5em;
+      }
+
+      th {
+          background: #d0d0f0;
+          text-align: left;
+      }
+  </style>
+</head>
+
+<!-- =========================================================================================== -->
+<body>
+<h1>Simple D3-driven Table</h1>
+
+<div id="target"></div>
+
+<p>An example of using D3 to create an HTML table from a set of arbitrary columns and rows. This
+approach supports any subset of columns, in any order, with possible duplicates.</p>
+
+<script>
+    // Since this script relies on page structure, it should be the last thing
+    // in the <body>.
+    //----------------------------------------------------------------------------
+
+    // Description of columns, and indirect specification of row elements
+    var columnData = [
+        { id: 'id1',  name: 'Who',       type: 'string' },
+        { id: 'id2',  name: 'How Many',  type: 'number' },
+        { id: 'id3',  name: 'Ok',        type: 'boolean' }
+    ];
+
+    // Data points, with one datum per column.
+    var rowData = [
+        ["Aaron",     1, true ],
+        ["Benjamin",  2, false],
+        ["Caruthers", 3, true ],
+        ["Django",    4, false],
+        ["Edwin",     5, true ]
+    ];
+
+    // Order and selection of desired columns from source data
+    var columnSelections = [ 'id3', 'id1', 'id2', 'id1' ];
+
+
+    // Set up parent elements
+    var target = d3.select('div');
+    var table = target.append('table');
+
+    var tableHead = table.append('thead');
+    var tableBody = table.append('tbody');
+
+    // Set up swizzle of column indices
+    var columnSwizzle = [];
+    for (var i=0;  i < columnSelections.length;  ++i) {
+        var columnIndex = 0;
+        while ((columnIndex < columnData.length) && (columnSelections[i] !== columnData[columnIndex].id))
+            ++columnIndex;
+        if (columnIndex < columnData.length)
+            columnSwizzle.push (columnIndex);
+    }
+
+    // Create the headers of selected columns.
+    var headers = [];
+    for (var columnIndex=0;  columnIndex < columnSelections.length;  ++columnIndex) {
+        headers.push (columnData[columnSwizzle[columnIndex]].name);
+    }
+
+    // Render the table headers
+    var columns = tableHead.append('tr')
+        .selectAll('th')
+        .data(headers);
+
+    columns.enter()
+        .append('th')
+        .text(function(d){return d});
+
+    columns.exit()
+        .remove();
+
+
+
+    // Render the table rows
+    function update(data) {
+
+        // Create the filtered data from the original source and column selection
+        var filteredData = [];
+
+        for (var rowIndex=0;  rowIndex < data.length;  ++rowIndex) {
+            var sourceRow = data[rowIndex];
+            var filteredRow = [];
+            for (var i=0;  i < columnSwizzle.length;  ++i)
+                filteredRow[i] = sourceRow[columnSwizzle[i]];
+            filteredData.push (filteredRow);
+        }
+
+        var rows = tableBody.selectAll('tr')
+            .data(filteredData);
+
+        rows.enter()
+            .append('tr')
+            .selectAll('td')
+            .data(function(d){return d})
+            .enter()
+            .append('td')
+            .text(function(d){return d});
+
+        rows.exit()
+            .remove();
+    }
+
+    // The initial display.
+    update(rowData);
+
+    //----------------------------------------------------------------------------
+</script>
+</body>
+</html>
