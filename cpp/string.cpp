@@ -81,7 +81,10 @@ void main () {
     cout << "Alphabet position of 'nop': " << alphabet.find("nop") << endl;
     cout << "Alphabet contains 'nop'? " << ((alphabet.find("nop") == string::npos) ? "No" : "Yes") << endl;
     cout << "Alphabet contains 'pon'? " << ((alphabet.find("pon") == string::npos) ? "No" : "Yes") << endl;
-    cout << "Alphabet position of 'x': " << alphabet.find('x') << endl;
+
+    string blankTemplate = "1_345_789___3456_890";
+    cout << "Index of first '_' in \"" << blankTemplate << "\": " << blankTemplate.find('_') << endl;
+    cout << "Index of last  '_' in \"" << blankTemplate << "\": " << blankTemplate.rfind('_') << endl;
 
     // C-Style char buffers. There's no need to free these pointers. If you want to modify this, then you should
     // construct a secondary copy and work with that.
