@@ -86,6 +86,13 @@ void main () {
     cout << "Index of first '_' in \"" << blankTemplate << "\": " << blankTemplate.find('_') << "\n";
     cout << "Index of last  '_' in \"" << blankTemplate << "\": " << blankTemplate.rfind('_') << "\n";
 
+    cout << ">> alphpabet = " << alphabet << "\n";
+    cout << "Alphabet iterator beggining from std::find('t'): ";
+        auto it = std::find (alphabet.begin(), alphabet.end(), 't');
+        cout << *it++ << ", ";
+        cout << *it++ << ", ";
+        cout << *it++ << ", ...\n";
+
     // C-Style char buffers. There's no need to free these pointers. If you want to modify this, then you should
     // construct a secondary copy and work with that.
     cout << "\n-- C-style buffers\n";
