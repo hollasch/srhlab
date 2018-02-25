@@ -1,6 +1,6 @@
 ccopts=-nologo -W3 -I"%VCINSTALLDIR%/include" -EHsc
 
-all: forscope istream constants float string
+all: forscope istream constants float string variadic
 
 forscope: forscope.exe
 
@@ -31,6 +31,12 @@ string: string.exe
 string.exe: string.cpp
     cl $(ccopts) string.cpp
     del 2>nul string.obj
+
+variadic: variadic.exe
+
+variadic.exe: variadic.cpp
+    cl $(ccopts) variadic.cpp
+    del 2>nul variadic.obj
 
 clean:
     del 2>nul *.obj *.exe
