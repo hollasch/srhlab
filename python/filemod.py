@@ -11,18 +11,14 @@
 
 import sys
 
-inputName  = sys.argv[1]      # Input file handle
-outputName = sys.argv[2]      # Output file handle
+input_name  = sys.argv[1]      # Input file name
+output_name = sys.argv[2]      # Output file name
 
-inputFile = open (sys.argv[1])             # Open input file for reading (default)
-outputFile = open (sys.argv[2], 'w')       # Open output file for writing
+line_num = 1
 
-lineNum = 1
-
-for line in inputFile:                     # Could also use inputFile.readlines()
-    line = line[:-1]                       # Chop trailing newline
-    outputFile.write ("{0}: \"{1}\"\n" . format(lineNum,line))
-    lineNum += 1
-
-inputFile.close()
-outputFile.close()
+with open (input_name, 'r') as in_file:
+    with open (output_name, 'w') as numbered_file:
+        for line in in_file:
+            line = line[:-1]
+            numbered_file.write ("{0:6d}| {1}\n" . format(line_num, line))
+            line_num += 1
