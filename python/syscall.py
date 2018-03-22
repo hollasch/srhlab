@@ -2,4 +2,4 @@
 
 import subprocess
 
-subprocess.call("currtime -z UTC \"Current time is %H:%M:%S UTC\"")
+subprocess.call("timeprint -z UTC \"Current time is %H:%M:%S UTC\"")
