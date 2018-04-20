@@ -65,13 +65,16 @@ print ("Example of print with comma:", "hello", "there", "world")
 # Lists
 
 print ("\nSample list:")
-def printList(list):
-    for item in list:
+def printList(L):
+    for item in L:
         print ("List item =", item)
 
-list = ["a", "b", "zzz", "delta", "gamma"];
-printList(list)
+L = ["a", "b", "zzz", "delta", "gamma"];
+printList(L)
 
-print ("\nAfter adding delta:")
-list.append("delta")
-printList(list)
+print ("\nAfter adding pi:")
+L.append("pi")
+printList(L)
+
+print ("\nItems containing the letter 'a'")
+print (list(filter(lambda e: 'a' in e, L)))
