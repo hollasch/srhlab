@@ -2,6 +2,7 @@
 
 class MyClass {
     int* buffer = nullptr;
+    string someText;
 
   private:
 
@@ -16,6 +17,7 @@ class MyClass {
     MyClass (MyClass&& other) {
         buffer = other.buffer;
         other.buffer = nullptr;   // Leave source in "empty" but valid state.
+        someText = std::move(other.someText);
     }
 
     // Move Assignment Operator
@@ -25,6 +27,7 @@ class MyClass {
             buffer = other.buffer;
 
             other.buffer = nullptr;   // Leave source in "empty" but valid state.
+            someText = std::move(other.someText);
         }
     }
 
@@ -39,4 +42,5 @@ class MyClass {
 
 class MyClassB {
     unique_ptr<int> buffer;
+    string someText;
 }
