@@ -1,3 +1,5 @@
+// Ref https://mbevin.wordpress.com/2012/11/20/move-semantics/
+
 // This class uses rvalue references (X&&) to define the two move constructors.
 
 class MyClass {
