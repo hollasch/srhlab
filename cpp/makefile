@@ -1,41 +1,45 @@
 ccopts=-nologo -W3 -I"%VCINSTALLDIR%/include" -EHsc
+outDir=out
 
-all: forscope istream constants float string variadic
+all: mkout forscope istream constants float string variadic
 
-forscope: forscope.exe
+mkout:
+    -mkdir 2>nul $(outDir)
 
-forscope.exe: forscope.cpp
-    cl $(ccopts) forscope.cpp
+forscope: mkout $(outDir)\forscope.exe
+
+$(outDir)\forscope.exe: forscope.cpp
+    cl $(ccopts) forscope.cpp -Fe$@
     del 2>nul forscope.obj
 
-istream: istream.exe
+istream: $(outDir)\istream.exe
 
-istream.exe: istream.cpp
-    cl $(ccopts) -EHsc istream.cpp
+$(outDir)\istream.exe: istream.cpp
+    cl $(ccopts) -EHsc istream.cpp -Fe$@
     del 2>nul istream.obj
 
-constants: constants.exe
+constants: $(outDir)\constants.exe
 
-constants.exe: constants.cpp
-    cl $(ccopts) constants.cpp
+$(outDir)\constants.exe: constants.cpp
+    cl $(ccopts) constants.cpp -Fe$@
     del 2>nul constants.obj
 
-float: float.exe
+float: $(outDir)\float.exe
 
-float.exe: float.cpp
-    cl $(ccopts) -Ox float.cpp
+$(outDir)\float.exe: float.cpp
+    cl $(ccopts) -Ox float.cpp -Fe$@
     del 2>nul float.obj
 
-string: string.exe
+string: $(outDir)\string.exe
 
-string.exe: string.cpp
-    cl $(ccopts) string.cpp
+$(outDir)\string.exe: string.cpp
+    cl $(ccopts) string.cpp -Fe$@
     del 2>nul string.obj
 
-variadic: variadic.exe
+variadic: $(outDir)\variadic.exe
 
-variadic.exe: variadic.cpp
-    cl $(ccopts) variadic.cpp
+$(outDir)\variadic.exe: variadic.cpp
+    cl $(ccopts) variadic.cpp -Fe$@
     del 2>nul variadic.obj
 
 clean:
