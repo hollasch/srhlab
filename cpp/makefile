@@ -1,7 +1,7 @@
 ccopts=-nologo -W3 -I"%VCINSTALLDIR%/include" -Fo.\out\obj\ -EHsc
 outDir=out
 
-all: mkout forscope istream constants float string variadic
+all: mkout forscope istream constants float sharedPtr string variadic
 
 mkout:
     -mkdir 2>nul $(outDir)\obj
@@ -16,6 +16,7 @@ forscope:  mkout $(outDir)\forscope.exe
 istream:   mkout $(outDir)\istream.exe
 constants: mkout $(outDir)\constants.exe
 float:     mkout $(outDir)\float.exe
+sharedPtr: mkout $(outDir)\sharedPtr.exe
 string:    mkout $(outDir)\string.exe
 variadic:  mkout $(outDir)\variadic.exe
 
@@ -31,6 +32,9 @@ $(outDir)\constants.exe: constants.cpp
 
 $(outDir)\float.exe: float.cpp
     cl $(ccopts) -Ox -wd4723 -Fe$@ float.cpp
+
+$(outDir)\sharedPtr.exe: sharedPtr.cpp
+    cl $(ccopts) -Fe$@ sharedPtr.cpp
 
 $(outDir)\string.exe: string.cpp
     cl $(ccopts) -Fe$@ string.cpp
