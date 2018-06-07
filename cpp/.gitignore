@@ -1,2 +1,2 @@
 # Ignore file for C++ lab
-*.exe
+out/
