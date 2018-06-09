@@ -21,10 +21,16 @@ struct Data {
     }
 };
 
-void printWeakStatus (std::weak_ptr<Data> wp, const char* indent)
+std::shared_ptr<Data> newData(const char* indent) {
+    cout << indent << "Creating and returning shared_ptr of new Data object.\n";
+    auto newData = std::make_shared<Data>(13, true, 1.37f);
+    return newData;
+}
+
+void printWeakStatus (std::weak_ptr<Data> wp, const char* name, const char* indent)
 {
     cout << indent
-         << "weakPtr: "
+         << name << ": "
          << "use_count " << wp.use_count() << ", "
          << "expired: " << (wp.expired()?"true":"false") << "\n";
 }
@@ -33,14 +39,14 @@ void main() {
     cout << "\nPlaying with std::shared_ptr, std::weak_ptr.\n";
 
     weak_ptr<Data> weakPtr;
-    printWeakStatus(weakPtr, "");
+    printWeakStatus(weakPtr, "weakPtr", "");
 
     cout << "\n>>>> Entering scope 1.\n";
     {
         auto indent = "    ";
 
         cout << indent << "Creating new Data object.\n";
-        shared_ptr<Data> sharedPtr = make_shared<Data>(13, true, 1.37f);
+        shared_ptr<Data> sharedPtr = newData(indent);
 
         cout << indent << "sharedPtr = [" << sharedPtr << "] <"
             << sharedPtr->n << ", "
@@ -50,7 +56,7 @@ void main() {
         cout << indent << "weakPtr <- sharedPtr\n";
         weakPtr = sharedPtr;
 
-        printWeakStatus(weakPtr, "    ");
+        printWeakStatus(weakPtr, "weakPtr", "    ");
 
         cout << indent << ">>>> Entering scope 2.\n";
         {
@@ -59,11 +65,15 @@ void main() {
             cout << indent << "sharedPtr2 <- sharedPtr\n";
             shared_ptr<Data> sharedPtr2 = sharedPtr;
 
-            printWeakStatus(weakPtr, indent);
+            printWeakStatus(weakPtr, "weakPtr", indent);
+
+            cout << indent << "weakPtr2 <- sharedPtr2\n";
+            weak_ptr<Data> weakPtr2 = sharedPtr2;
+            printWeakStatus(weakPtr2, "weakPtr2", indent);
 
             cout << indent << "<<<< Leaving scope 2.\n";
         }
-        printWeakStatus(weakPtr, indent);
+        printWeakStatus(weakPtr, "weakPtr", indent);
 
         cout << indent << ">>>> Entering scope 3.\n";
         {
@@ -72,14 +82,14 @@ void main() {
             cout << indent << "sharedPtr3 <- weakPtr.lock()\n";
             shared_ptr<Data> sharedPtr3 = weakPtr.lock();
 
-            printWeakStatus(weakPtr, indent);
+            printWeakStatus(weakPtr, "weakPtr", indent);
 
             cout << indent << "<<<< Leaving scope 3.\n";
         }
-        printWeakStatus(weakPtr, indent);
+        printWeakStatus(weakPtr, "weakPtr", indent);
 
         cout << indent << "<<<< Leaving scope 1.\n";
     }
 
-    printWeakStatus(weakPtr, "");
+    printWeakStatus(weakPtr, "weakPtr", "");
 }
