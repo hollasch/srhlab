@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+    <meta charset="utf-8">
+    <title>Embedded Style Element</title>
+    <style>
+      div.foo p { color: red; background-color: #ddd; padding: 0.5em 1ex; }
+      body { margin: 4em 10% 0 10%; }
+    </style>
+
+<!-- ===========================================================================
+
+Bottom line: style elements
+  + may occur anywhere in the head or body
+  + cascade in document order
+  + affect the entire document; placement is irrelevant
+
+============================================================================ -->
+
+<body>
+
+  <h1>Style Element Placement Example</h1>
+
+  <div class="foo">
+    <p>Div before div containing the style element.
+  </div>
+
+  <div class="foo">
+    <p>Paragraph inside &amp; div with style element, before the style element.
+    <style>
+      div.foo p { color: green; }
+    </style>
+    <p>Paragraph inside &amp; div with style element, after the style element.
+  </div>
+
+  <div class="foo">
+    <p>Div after div containing the style element.
+  </div>
+
+</body>
