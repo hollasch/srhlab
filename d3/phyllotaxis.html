@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+  body { background: #333; }
+</style>
+
+<body>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script>
+
+  let width  = 800;
+  let height = 800;
+  let radius = 0.5 * Math.min(width,height) - 10;
+
+  let phi = 0.5 * (1 + Math.sqrt(5));
+  let theta = Math.PI * (3 - Math.sqrt(5));
+  // let theta = Math.PI * (phi-1);
+
+  let spacing = 4;
+  let size = spacing - 1;
+  let speed = 1;
+  let index = 0;
+  let total = (radius * radius) / (spacing * spacing);
+
+  let color = d3.scaleSequential(d3.interpolateRainbow)
+      .domain([0, 360]);
+
+  let canvas = d3.select("body").append("canvas")
+      .attr("width", radius * 2)
+      .attr("height", radius * 2)
+      .style("position", "absolute")
+      .style("left", width / 2 - radius + "px")
+      .style("top", height / 2 - radius + "px")
+      .style("transform-origin", radius + "px " + radius + "px");
+
+  let context = canvas.node().getContext("2d");
+
+  context.translate(radius, radius);
+
+  d3.timer(function() {
+    // canvas.style("transform", "rotate(" + -speed / 2 + "deg)");
+
+    for (var j = 0; index < total && j < speed; ++j) {
+      let radius = spacing * Math.sqrt(++index);
+      let angle = index * theta;
+      let x = radius * Math.cos(angle);
+      let y = radius * Math.sin(angle);
+
+      context.beginPath();
+      context.arc(x, y, size, 0, 2 * Math.PI);
+      context.stroke();
+      context.fillStyle = color(angle * 180 / Math.PI - radius);
+      context.fill();
+    }
+
+    speed += .1;
+  });
+
+</script>
