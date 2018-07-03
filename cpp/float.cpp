@@ -10,8 +10,13 @@ int main (int argc, char *argv[])
     bool naneq = nan == nan;
     bool infeq = inf == inf;
 
-    printf ("nan = %g\n", nan);
+    printf ("NaN = %g\n", nan);
     printf ("inf = %g\n", inf);
-    printf ("nan == nan => %s\n", naneq ? "true" : "false");
+    printf ("NaN == NaN => %s\n", naneq ? "true" : "false");
     printf ("inf == inf => %s\n", infeq ? "true" : "false");
+
+    printf ("NaN < 10 = %s\n", nan < 10 ? "true" : "false");
+    printf ("NaN == 10 = %s\n", nan == 10 ? "true" : "false");
+    printf ("NaN != 10 = %s\n", nan != 10 ? "true" : "false");
+    printf ("NaN > 10 = %s\n", nan > 10 ? "true" : "false");
 }
