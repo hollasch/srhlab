@@ -6,7 +6,7 @@
 using namespace std;
 
 int main() {
-    ifstream f("foo.txt");
+    ifstream f("istream-test.txt");
 
     vector<string> v;
 
