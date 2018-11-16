@@ -1,0 +1,4 @@
+# Ignore rules for wintitle
+
+*.obj
+*.exe
