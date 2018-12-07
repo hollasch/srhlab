@@ -1,6 +1,12 @@
 #include <math.h>
 #include <stdio.h>
 
+#include <iostream>
+#include <limits>
+
+using std::cout;
+using fLimits = std::numeric_limits<float>;
+
 int main (int argc, char *argv[])
 {
     double zero = 0.;
@@ -19,4 +25,8 @@ int main (int argc, char *argv[])
     printf ("NaN == 10 = %s\n", nan == 10 ? "true" : "false");
     printf ("NaN != 10 = %s\n", nan != 10 ? "true" : "false");
     printf ("NaN > 10 = %s\n", nan > 10 ? "true" : "false");
+
+    cout << "std::numeric_limits<float>::max = " << fLimits::max() << "\n";
+    cout << "std::numeric_limits<float>::min = " << fLimits::min() << "\n";
+    cout << "std::numeric_limits<float>::lowest = " << fLimits::lowest() << "\n";
 }
