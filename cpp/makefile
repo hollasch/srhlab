@@ -1,8 +1,9 @@
 build=build
 ccopts=-nologo -W3 -I"%VCINSTALLDIR%/include" -Fo$(build)\obj\ -EHsc
 
-all: mkBuild constants expr-vars float float-close floatEpsilonDiffTest forscope istream sharedPtr \
-    string variadic
+all: mkBuild \
+	constants expr-vars float float-close floatEpsilonDiffTest forscope istream sharedPtr string \
+	unordered_set variadic
 
 mkBuild:
     -mkdir 2>nul $(build)\obj
@@ -22,6 +23,7 @@ forscope:             mkBuild $(build)\forscope.exe
 istream:              mkBuild $(build)\istream.exe
 sharedPtr:            mkBuild $(build)\sharedPtr.exe
 string:               mkBuild $(build)\string.exe
+unordered_set:        mkBuild $(build)\unordered_set.exe
 variadic:             mkBuild $(build)\variadic.exe
 
 
@@ -51,6 +53,9 @@ $(build)\sharedPtr.exe: sharedPtr.cpp
 
 $(build)\string.exe: string.cpp
     cl $(ccopts) -Fe$@ string.cpp
+
+$(build)\unordered_set.exe: unordered_set.cpp
+    cl $(ccopts) -Fe$@ unordered_set.cpp
 
 $(build)\variadic.exe: variadic.cpp
     cl $(ccopts) -Fe$@ variadic.cpp
