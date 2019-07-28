@@ -1,5 +1,5 @@
 build=build
-ccopts=-nologo -W3 -I"%VCINSTALLDIR%/include" -Fo$(build)\obj\ -EHsc
+ccopts=-nologo -std:c++latest -W3 -I"%VCINSTALLDIR%/include" -Fo$(build)\obj\ -EHsc
 
 all: mkBuild \
 	constants expr-vars float float-close floatEpsilonDiffTest forscope istream pair sharedPtr \
