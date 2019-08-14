@@ -2,8 +2,8 @@ build=build
 ccopts=-nologo -std:c++latest -W3 -I"%VCINSTALLDIR%/include" -Fo$(build)\obj\ -EHsc
 
 all: mkBuild \
-	constants expr-vars float float-close floatEpsilonDiffTest forscope istream rgbclamp pair \
-	sharedPtr string unordered_set variadic
+	constants expr-vars float float-close floatEpsilonDiffTest forscope istream ostream rgbclamp \
+	pair sharedPtr string unordered_set variadic
 
 mkBuild:
     -mkdir 2>nul $(build)\obj
@@ -21,6 +21,7 @@ float:                mkBuild $(build)\float.exe
 floatEpsilonDiffTest: mkBuild $(build)\floatEpsilonDiffTest.exe
 forscope:             mkBuild $(build)\forscope.exe
 istream:              mkBuild $(build)\istream.exe
+ostream:              mkBuild $(build)\ostream.exe
 rgbclamp:             mkBuild $(build)\rgbclamp.exe
 pair:                 mkBuild $(build)\pair.exe
 sharedPtr:            mkBuild $(build)\sharedPtr.exe
@@ -49,6 +50,9 @@ $(build)\forscope.exe: forscope.cpp
 
 $(build)\istream.exe: istream.cpp
     cl $(ccopts) -EHsc -Fe$@ istream.cpp
+
+$(build)\ostream.exe: ostream.cpp
+    cl $(ccopts) -EHsc -Fe$@ ostream.cpp
 
 $(build)\pair.exe: pair.cpp
     cl $(ccopts) -Fe$@ pair.cpp
