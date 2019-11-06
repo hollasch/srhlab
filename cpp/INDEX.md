@@ -18,7 +18,8 @@ Variables
 
 Std Library
 ------------
-- `istream.cpp` -- istream test (reads `istream-test.txt`)
+- `istream.cpp` -- `std::istream `test (reads `istream-test.txt`)
+- `ostream.cpp` -- `std::ostream` experiments
 
 Std Containers
 ---------------
