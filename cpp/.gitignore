@@ -1,2 +1,2 @@
-# Ignore file for C++ lab
-build/
+# Ignore file for srhlab C++
+/build/
