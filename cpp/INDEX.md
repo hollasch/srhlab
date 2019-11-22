@@ -15,6 +15,7 @@ Variables
 - `expr-vars.cpp` -- playing with comma-operator variable declarations
 - `initialization.cpp` -- testing member variable initialization
 - `scope-for.cpp` -- testing scope of variables declared in for-loops
+- `scope-if.cpp` -- testing scope of variables declared in if-blocks
 
 Std Library
 ------------
