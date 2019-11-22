@@ -13,8 +13,8 @@ Floating Point
 Variables
 ----------
 - `expr-vars.cpp` -- playing with comma-operator variable declarations
-- `forscope.cpp` -- testing scope of variables declared in for-loops
 - `initialization.cpp` -- testing member variable initialization
+- `scope-for.cpp` -- testing scope of variables declared in for-loops
 
 Std Library
 ------------
