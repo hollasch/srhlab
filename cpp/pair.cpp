@@ -2,18 +2,27 @@
 
 using namespace std;
 
-pair<double,bool> f()
+pair<bool,double> f()
 {
-    return { 3.7, true };
+    return { true, 3.7 };
+}
+
+void report(bool b, double d) {
+    cout << (b ? "true" : "false") << ", " << d << "\n";
 }
 
 void main()
 {
+    // Get pair return from function.
     auto x = f();
-    cout << "x.first = " << x.first << ", x.second = " << (x.second ? "true" : "false") << "\n";
+    report(x.first, x.second);
 
-    double a;
+    // Function application
+    std::apply(report, x);
+
+    // Destructuring
     bool b;
-    std::tie(a,b) = f();
-    cout << "a = " << a << ", b = " << (b ? "true" : "false") << "\n";
+    double d;
+    std::tie(b,d) = f();
+    report(b,d);
 }
