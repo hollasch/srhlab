@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+# A simple countdown display
 
 import time
 import sys

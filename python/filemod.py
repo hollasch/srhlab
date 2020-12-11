@@ -1,5 +1,3 @@
-#!/usr/local/bin/python3
-
 # filemod.py
 #
 #   This example takes two arguments:

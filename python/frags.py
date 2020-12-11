@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+# Random collection of Python fragments
 
 import os
 import datetime

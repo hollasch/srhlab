@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+# Stream reading and writing, stdin/stdout
 
 import fileinput
 
