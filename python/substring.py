@@ -1,0 +1,5 @@
+print ("\"Klaatu barada nikto\" = \"" + "Klaatu barada nikto" + "\"")
+print ("\"Klaatu barada nikto\"[7] = \"" + "Klaatu barada nikto"[7] + "\"")
+print ("\"Klaatu barada nikto\"[7:] = \"" + "Klaatu barada nikto"[7:] + "\"")
+print ("\"Klaatu barada nikto\"[7:13] = \"" + "Klaatu barada nikto"[7:13] + "\"")
+print ("\"Klaatu barada nikto\"[:13] = \"" + "Klaatu barada nikto"[:13] + "\"")
