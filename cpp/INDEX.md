@@ -33,3 +33,7 @@ Language Features
 ------------------
 - `std-move-class.cpp` -- a class with `std::move` semantics
 - `variadic.cpp` -- experiments with variadic functions
+
+Types
+------
+- `type-collision.cpp` -- illustrates that new types via `using` are mere type aliases
