@@ -24,3 +24,11 @@ if [[ "xyz" != "xyz" ]]; then echo "Something's wrong!"; fi
 
 if which -s git; then echo Git is installed.; fi
 if ! which -s git; then echo Git is not installed.; fi
+
+some-command | while read -a line
+do
+    echo "Entire line: ${line[@]}"
+    echo "Token 0: ${line[0]}"
+    echo "Token 1: ${line[1]}"
+    echo "Token 2: ${line[2]}"
+done
