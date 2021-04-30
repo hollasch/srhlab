@@ -15,4 +15,6 @@ int main (int argc, char *argv[]) {
     cout << "f() returns " << f() << '\n';
     cout << "f() returns " << f() << '\n';
     cout << "f() returns " << f() << '\n';
+
+    return 0;
 }

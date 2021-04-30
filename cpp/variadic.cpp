@@ -46,8 +46,10 @@ void dump (const char *format...)
 }
 
 
-void main () {
+int main () {
     cout << "Variadic Functions.\n\n";
 
     dump ("bfcdcb", false, 1.37, 'x', 11, 't', true);
+
+    return 0;
 }

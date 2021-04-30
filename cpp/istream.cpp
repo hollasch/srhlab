@@ -17,4 +17,6 @@ int main() {
     for (vector<string>::const_reverse_iterator i = v.rbegin(); i != v.rend(); ++i) {
         cout << *i << endl;
     }
+
+    return 0;
 }

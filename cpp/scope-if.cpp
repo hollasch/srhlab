@@ -22,7 +22,7 @@ shared_ptr<Reporter> getReporter() {
 }
 
 
-void main () {
+int main () {
     cout << "Before if block.\n";
 
     if (const auto sharedReporter = getReporter()) {
@@ -30,4 +30,6 @@ void main () {
     }
 
     cout << "After if block.\n";
+
+    return 0;
 }

@@ -20,4 +20,6 @@ int main()
 
     test (0x3ff0000000000000L,
           0x3ff0000000000001L);
+
+    return 0;
 }

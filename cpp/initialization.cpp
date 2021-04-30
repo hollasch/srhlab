@@ -13,9 +13,11 @@ class TestInit {
 };
 
 
-void main (int argc, char *argv[])
+int main (int argc, char *argv[])
 {
     TestInit instance;
 
     cout << "Value is " << instance.value() << "\n";
+
+    return 0;
 }

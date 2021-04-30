@@ -45,7 +45,7 @@ float kahan(float a[], int N) {
         return sum;
     }
 
-void main() {
+int main() {
     const int N = 100000;
     float a[N]; // Reciprocals { 1/100000, 1/99999, 1/99998, 1/99997, ..., 1/3, 1/2, 1/1 }
 
@@ -58,4 +58,6 @@ void main() {
     std::cout << std::setprecision(16) << " kahan descending: " << kahan(a,N) << '\n';
     std::cout << std::setprecision(16) << "double ascending:  " << dsumAscending(a,N) << '\n';
     std::cout << std::setprecision(16) << "double descending: " << dsumDescending(a,N) << '\n';
+
+    return 0;
 }

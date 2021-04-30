@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void main () {
+int main () {
     cout << "Playing with std::string.\n";
 
     // Initialization
@@ -118,4 +118,6 @@ void main () {
     hash<string> hashFunction;
     size_t hashValue = hashFunction(hashSource);
     cout << "Hash = " << hashValue << "\n";
+
+    return 0;
 }

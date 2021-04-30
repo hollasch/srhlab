@@ -16,7 +16,7 @@
 
 using namespace std;
 
-void main() {
+int main() {
     cout << "\nTesting variable declarations in expressions.\n";
 
     // For-loop; pretty standard usage.
@@ -56,4 +56,6 @@ void main() {
     //
     //     if (auto v_if = 10, v_if < 20)      // ERROR: missing ')' before ','
     //         cout << "if-test\n";
+
+    return 0;
 }
