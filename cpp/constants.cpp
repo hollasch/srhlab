@@ -32,4 +32,6 @@ int main (int argc, char *argv[])
     printf ("loge    = %23.20lf\n", loge);
     printf ("log2    = %23.20lf\n", log2);
     printf ("log10   = %23.20lf\n", log10);
+
+    return 0;
 }

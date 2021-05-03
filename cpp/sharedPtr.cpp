@@ -27,15 +27,14 @@ std::shared_ptr<Data> newData(const char* indent) {
     return newData;
 }
 
-void printWeakStatus (std::weak_ptr<Data> wp, const char* name, const char* indent)
-{
+void printWeakStatus (std::weak_ptr<Data> wp, const char* name, const char* indent) {
     cout << indent
          << name << ": "
          << "use_count " << wp.use_count() << ", "
          << "expired: " << (wp.expired()?"true":"false") << "\n";
 }
 
-void main() {
+int main() {
     cout << "\nPlaying with std::shared_ptr, std::weak_ptr.\n";
 
     weak_ptr<Data> weakPtr;
@@ -92,4 +91,6 @@ void main() {
     }
 
     printWeakStatus(weakPtr, "weakPtr", "");
+
+    return 0;
 }

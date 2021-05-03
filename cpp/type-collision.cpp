@@ -13,7 +13,7 @@ using std::cout;
 using A = int32_t;
 using B = int32_t;
 
-void main() {
+int main() {
     A x = 3;
     B y = 7;
 
@@ -21,4 +21,6 @@ void main() {
     x = y;
 
     cout << "Result is " << x << ".\n";
+
+    return 0;
 }

@@ -29,9 +29,11 @@ ostream& operator<<(ostream& out, const Color& color) {
 }
 
 
-void main() {
+int main() {
 
     auto c = Color(0.125, 0.250, 0.500);
 
     cout << "color: " << c << "\n";
+
+    return 0;
 }

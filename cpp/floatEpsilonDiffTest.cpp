@@ -20,11 +20,13 @@ bool different (double a, double b) {
     return std::fabs(a - b) < epsilon;
 }
 
-void main() {
+int main() {
     double a = 1;
 
     for (auto loopCount = 0;  loopCount < 20;  ++loopCount) {
         printf ("different(%23.16f, %23.16f): %s\n", a, nextLarger(a), different(a,nextLarger(a)) ? "true" : "false");
         a *= 2;
     }
+
+    return 0;
 }

@@ -3,8 +3,7 @@
 
 using namespace std;
 
-void main ()
-{
+int main () {
     int i = 37;
 
     cout << "Before for: i=" << i << endl;
@@ -15,4 +14,6 @@ void main ()
     }
 
     cout << "After  for: i=" << i << endl;
+
+    return 0;
 }

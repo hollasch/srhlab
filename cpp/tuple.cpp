@@ -16,8 +16,7 @@ void report(bool b, char c, double d, int i) {
          << "}\n";
 }
 
-void main()
-{
+int main() {
     // Create an immediate tuple and access via std::get<#>(var).
 
     auto x = std::make_tuple (true, 'q', 3.7, 11);
@@ -48,4 +47,6 @@ void main()
          << d << ", "
          << i
          << "}\n";
+
+    return 0;
 }

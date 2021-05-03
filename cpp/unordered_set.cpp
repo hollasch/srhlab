@@ -2,7 +2,7 @@
 #include <unordered_set>
 #include <string>
 
-void main() {
+int main() {
     std::cout << "\nUnordered Set Example\n";
 
     // Initialization
@@ -31,4 +31,6 @@ void main() {
     std::cout << "----------------------------------------\n";
     std::cout << "Contains 'three': " << (set.find("three") != set.cend() ? "true" : "false") << "\n";
     std::cout << "Contains 'green': " << (set.find("green") != set.cend() ? "true" : "false") << "\n";
+
+    return 0;
 }

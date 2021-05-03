@@ -10,7 +10,9 @@ project (
     LANGUAGES CXX
 )
 
-set (CMAKE_CXX_STANDARD 17)
+set (CMAKE_CXX_STANDARD 20)
+set (CMAKE_CXX_STANDARD_REQUIRED ON)
+set (CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable (constants            constants.cpp)
 add_executable (expr-vars            expr-vars.cpp)
@@ -32,3 +34,4 @@ add_executable (tuple                tuple.cpp)
 add_executable (type-collision       type-collision.cpp)
 add_executable (unordered_set        unordered_set.cpp)
 add_executable (variadic             variadic.cpp)
+add_executable (vector-growth        vector-growth.cpp)
