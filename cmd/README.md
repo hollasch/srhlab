@@ -2,6 +2,7 @@ Index of CMD Scripts
 ====================================================================================================
 
 - `admin-launch.cmd` -- check for admin rights and relaunch as admin if necessary
+- `array.cmd` -- mocking array variables
 - `cmdargs.cmd` -- command argument expansion
 - `delayed_expansion.cmd` -- delayed expansion of environment variables
 - `echo-args.cmd` -- echo command-line arguments
