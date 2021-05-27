@@ -33,6 +33,7 @@ Language Features
 ------------------
 - `std-move-class.cpp` -- a class with `std::move` semantics
 - `variadic.cpp` -- experiments with variadic functions
+- `partvirt.cpp` -- (crash) declaring non-virtual base dtor, plus virtual derived dtor
 
 Types
 ------
