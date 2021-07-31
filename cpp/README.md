@@ -37,4 +37,5 @@ Language Features
 
 Types
 ------
+- `enum-bitfield` -- pitfalls of `enum`-based bitfields
 - `type-collision.cpp` -- illustrates that new types via `using` are mere type aliases

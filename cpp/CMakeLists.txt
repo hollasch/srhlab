@@ -15,6 +15,7 @@ set (CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable (constants            constants.cpp)
+add_executable (enum-bitfield        enum-bitfield.cpp)
 add_executable (expr-vars            expr-vars.cpp)
 add_executable (float                float.cpp)
 add_executable (float-close          float-close.cpp)
