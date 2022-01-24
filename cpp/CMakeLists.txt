@@ -21,6 +21,7 @@ add_executable (float                float.cpp)
 add_executable (float-close          float-close.cpp)
 add_executable (floatEpsilonDiffTest floatEpsilonDiffTest.cpp)
 add_executable (fpsum                fpsum.cpp)
+add_executable (ignore               ignore.cpp)
 add_executable (initialization       initialization.cpp)
 add_executable (istream              istream.cpp)
 add_executable (magic-static         magic-static.cpp)
@@ -37,3 +38,5 @@ add_executable (type-collision       type-collision.cpp)
 add_executable (unordered_set        unordered_set.cpp)
 add_executable (variadic             variadic.cpp)
 add_executable (vector-growth        vector-growth.cpp)
+
+target_compile_options(ignore PRIVATE -we4100) # Enable unreferenced parameter warning for 'ignore'

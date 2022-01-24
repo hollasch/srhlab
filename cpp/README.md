@@ -19,6 +19,7 @@ Variables
 
 Std Library
 ------------
+- `ignore.cpp`  -- Illustrate usage & effects of `std::ignore` for suppressing unused param warnings
 - `istream.cpp` -- `std::istream `test (reads `istream-test.txt`)
 - `ostream.cpp` -- `std::ostream` experiments
 
