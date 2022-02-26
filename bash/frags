@@ -14,6 +14,10 @@ hello2
 
 if [ -d . ]; then
     echo "Whereever you go, there you are."
+elif [ -f . ]; then
+    echo "Or somewhere else."
+else
+    echo "Or nowhere."
 fi
 
 for word in Hello solar system!; {
