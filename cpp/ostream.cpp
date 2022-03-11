@@ -13,7 +13,7 @@ class Color {
 
         auto priorPrecision = out.precision();
 
-        out << fixed << setprecision(3)
+        out << fixed << setprecision(4)
             << '[' << r << "," << g << "," << b << ']'
             << setprecision(priorPrecision) << defaultfloat;
 
@@ -31,9 +31,9 @@ ostream& operator<<(ostream& out, const Color& color) {
 
 int main() {
 
-    auto c = Color(0.125, 0.250, 0.500);
+    auto c = Color(0.125, 0.25, 0.618033988749895);
 
-    cout << "color: " << c << "\n";
+    cout << "color: " << c << "\n"; // "color: [0.1250, 0.5000, 0.6180]"
 
     return 0;
 }
