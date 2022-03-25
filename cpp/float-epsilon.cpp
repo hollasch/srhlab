@@ -4,7 +4,7 @@
 
 // This program tests whether two double-precision floating-point values compare as different using
 // the (fabs(a-b) < epsilon) test. As the values grow, epsilon compares against fewer and fewer
-// bits, until no value larger than some max can never differ from its next larger representation
+// bits, until no value larger than some max can ever differ from its next larger representation
 // by epsilon or less.
 
 const double epsilon { 1e-15 };
@@ -27,6 +27,16 @@ int main() {
         printf ("different(%23.16f, %23.16f): %s\n", a, nextLarger(a), different(a,nextLarger(a)) ? "true" : "false");
         a *= 2;
     }
+
+    // Shows the difference between 1.0 and epsilon. Epsilon is the smallest number such that 1+e != 1.
+    // Here, we subtract and add e/2 to show that 1 + e/2 == 1.
+
+    printf("\n");
+
+    double fmhe = 1.0 - std::numeric_limits<double>::epsilon() / 2.0;
+    double fphe = 1.0 + std::numeric_limits<double>::epsilon() / 2.0;
+    printf ("1.0 - e/2 (%.23f) == 1.0: %s\n", fmhe, (1.0 == fmhe) ? "true" : "false");
+    printf ("1.0 + e/2 (%.23f) == 1.0: %s\n", fphe, (1.0 == fphe) ? "true" : "false");
 
     return 0;
 }

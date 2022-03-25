@@ -29,6 +29,7 @@ int main (int argc, char *argv[])
     cout << "std::numeric_limits<float>::max = " << fLimits::max() << "\n";
     cout << "std::numeric_limits<float>::min = " << fLimits::min() << "\n";
     cout << "std::numeric_limits<float>::lowest = " << fLimits::lowest() << "\n";
+    cout << "std::numeric_limits<float>::epsilon = " << fLimits::epsilon() << "\n";
 
     return 0;
 }

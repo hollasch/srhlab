@@ -6,7 +6,7 @@ Floating Point
 - `constants.cpp` -- various C++ constant values and their literal decimal representation
 - `float.cpp` -- float values, zero, NaN, infinity
 - `float-close.cpp` -- the pitfall of using std::...epsilon() to determine closeness
-- `floatEpsilonDiffTest.cpp` -- testing abs(a-b) < epsilon
+- `float-epsilon.cpp` -- testing abs(a-b) < epsilon
 - `fpsum.cpp` -- preserving precision when summing floats
 - `rgbclamp.cpp` -- testing [0,1] clamping
 
