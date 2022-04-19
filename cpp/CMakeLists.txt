@@ -14,6 +14,7 @@ set (CMAKE_CXX_STANDARD 20)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CMAKE_CXX_EXTENSIONS OFF)
 
+add_executable (array           array.cpp)
 add_executable (constants       constants.cpp)
 add_executable (enum-bitfield   enum-bitfield.cpp)
 add_executable (expr-vars       expr-vars.cpp)

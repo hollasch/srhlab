@@ -25,6 +25,7 @@ Std Library
 
 Std Containers
 ---------------
+- `array.cpp` -- `std::array`
 - `pair.cpp` -- playing with std::pair<>
 - `sharedPtr.cpp` -- experiments with `std::shared_ptr`, `std::weak_ptr`
 - `string.cpp` -- experiments with `std::string`
