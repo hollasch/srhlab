@@ -7,6 +7,8 @@
 using std::cout;
 using fLimits = std::numeric_limits<float>;
 
+#pragma warning(disable:4723) // potential divide by 0
+
 int main (int argc, char *argv[])
 {
     double zero = 0.;
