@@ -43,5 +43,4 @@ int main () {
         cout << x << ' ';
     }
     cout << '\n';
-
 }
