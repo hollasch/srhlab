@@ -6,7 +6,7 @@ Index of CMD Scripts
 - `cmdargs.cmd` -- command argument expansion
 - `delayed_expansion.cmd` -- delayed expansion of environment variables
 - `echo-args.cmd` -- echo command-line arguments
-- `exitcode.cmd` -- illustration of the challenges of managing CMD script exit codes
+- `failexit.cmd` -- illustration of the challenges of managing CMD script exit codes
 - `indirect-goto.cmd` -- jumping to labels programmatically
 - `script-utf8-nobom.cmd` -- Unicode output
 - `zipdir.cmd` -- creating a zip archive of a directory using PowerShell
