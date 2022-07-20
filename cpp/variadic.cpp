@@ -7,8 +7,7 @@
 
 using namespace std;
 
-void dump (const char *format...)
-{
+void dump (const char *format...) {
     va_list arguments;
     va_start (arguments, format);
 
@@ -45,11 +44,30 @@ void dump (const char *format...)
     va_end(arguments);
 }
 
+// For an arbitrary number of arguments of the same type, use an initializer list.
+bool IsOneOf (int value, std::initializer_list<int> candidates) {
+    for (auto c : candidates)
+        if (value == c) return true;
+
+    return false;
+}
+
+std::string boolToString(bool b) {
+    return b ? "true" : "false";
+}
 
 int main () {
     cout << "Variadic Functions.\n\n";
 
     dump ("bfcdcb", false, 1.37, 'x', 11, 't', true);
+
+    cout << '\n';
+    cout << "IsOneOf(7, {0,9,13}) -> " << boolToString(IsOneOf(7, {0,9,13})) << '\n';
+    cout << "IsOneOf(7, {0,7,13}) -> " << boolToString(IsOneOf(7, {0,7,13})) << '\n';
+    cout << "IsOneOf(7, {0,2,4,6,8,10,12,14,16,18}) -> "
+         << boolToString(IsOneOf (7, {0,2,4,6,8,10,12,14,16,18})) << '\n';
+    cout << "IsOneOf(7, {}) -> " << boolToString(IsOneOf(7, {})) << '\n';
+    cout << "IsOneOf(7, {7}) -> " << boolToString(IsOneOf(7, {7})) << '\n';
 
     return 0;
 }
