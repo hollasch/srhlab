@@ -31,9 +31,22 @@ ostream& operator<<(ostream& out, const Color& color) {
 
 int main() {
 
+    // setfill and setw only apply to the immediately following non-manipulator output item.
+    cout << setfill('+') << setw(20) << 37 << '\n';
+    cout << 37 << '\n';
+    cout << setfill('+') << setw(20) << 37 << 45 << '\n';
+    cout << '[' << setfill('+') << setw(20) << 37 << ']' << '[' << setfill('+') << setw(20) << 37 << ']' << '\n';
+    cout << '[' << setfill('+') << setw(20) << 37 << ']' << '[' << 37 << ']' << '\n';
+
+    // hex/dec modifiers persist until set to something else.
+    cout << '\n';
+    cout << hex << 37 << '\n';   // 25
+    cout << 37 << '\n';          // 25
+    cout << dec << 37 << '\n';   // 37
+
     auto c = Color(0.125, 0.25, 0.618033988749895);
 
-    cout << "color: " << c << "\n"; // "color: [0.1250, 0.5000, 0.6180]"
+    cout << '\n' << "color: " << c << "\n"; // "color: [0.1250, 0.5000, 0.6180]"
 
     return 0;
 }
