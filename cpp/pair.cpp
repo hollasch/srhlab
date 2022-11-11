@@ -28,17 +28,10 @@ int main() {
     std::tie(b,d) = f();
     report(b,d);
 
-    cout << "\n# Structured Bindings\n";
-
-    vector<pair<int, string>> pairs {
-        { 0, "red" },
-        { 1, "green" },
-        { 2, "blue" }
-    };
-
-    for (auto [key, desc] : pairs) {
-        cout << "int(" << key << ") = \"" << desc << "\"\n";
-    }
+    // Structured Binding
+    cout << "\n# Structured Binding\n";
+    auto [s, t] = f();
+    report(s,t);
 
     return 0;
 }
