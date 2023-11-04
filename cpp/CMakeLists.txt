@@ -2,7 +2,7 @@
 # CMake Build Configuration for srhlab C++ code
 #---------------------------------------------------------------------------------------------------
 
-cmake_minimum_required (VERSION 3.2.0)
+cmake_minimum_required (VERSION 3.2.0...3.27.7)
 
 project (
     srhlab
