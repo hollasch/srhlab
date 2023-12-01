@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <cmath>
 #include <cstdint>
+#include <limits>
 
 // This program tests whether two double-precision floating-point values compare as different using
 // the (fabs(a-b) < epsilon) test. As the values grow, epsilon compares against fewer and fewer
