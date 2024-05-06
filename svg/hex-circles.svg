@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!--
+====================================================================================================
+Hex Circles
+
+A field of packed circles, filling the SVG window. This demonstrates use of the <defs>, <g>, and
+<use> SVG elements that are used to define, group, and instance components.
+
+The <defs> element provides a space to define components without rendering them, intended to be
+instanced later in the body of the SVG.
+
+Elements inside the definitions group each get unique identifiers, named in the `id` attribute.
+
+In the SVG body, the <use> element specifies an instance of a defined component, referenced by their
+respective identifier. These instances can be further modified, typically at least with spatial
+transforms.
+
+This example also demonstrates the cumulative nature of definitions that use prior definitions, to
+build up complex components.
+====================================================================================================
+-->
+
+<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'
+     style='border: solid 2px black;' width='800' height='800' >
+
+  <defs>
+    <g id='line5'>
+      <circle cx='10' cy='10' r='10' stroke='black' stroke-width='2' fill='none' />
+      <circle cx='30' cy='10' r='10' stroke='black' stroke-width='2' fill='none' />
+      <circle cx='50' cy='10' r='10' stroke='black' stroke-width='2' fill='none' />
+      <circle cx='70' cy='10' r='10' stroke='black' stroke-width='2' fill='none' />
+      <circle cx='90' cy='10' r='10' stroke='black' stroke-width='2' fill='none' />
+    </g>
+
+    <g id='line5x2'>
+      <use xlink:href='#line5' x=' 0' y=' 0' />
+      <use xlink:href='#line5' x='10' y='18.66025403784439' />
+    </g>
+
+    <g id='line5x10'>
+      <use xlink:href='#line5x2' x='0' y ='0' />
+      <use xlink:href='#line5x2' x='0' y ='37.3205080756888' />
+      <use xlink:href='#line5x2' x='0' y ='74.6410161513776' />
+      <use xlink:href='#line5x2' x='0' y ='111.961524227066' />
+      <use xlink:href='#line5x2' x='0' y ='149.282032302755' />
+    </g>
+
+    <g id='line40x10'>
+      <use xlink:href='#line5x10' x='  0' y='0' />
+      <use xlink:href='#line5x10' x='100' y='0' />
+      <use xlink:href='#line5x10' x='200' y='0' />
+      <use xlink:href='#line5x10' x='300' y='0' />
+      <use xlink:href='#line5x10' x='400' y='0' />
+      <use xlink:href='#line5x10' x='500' y='0' />
+      <use xlink:href='#line5x10' x='600' y='0' />
+      <use xlink:href='#line5x10' x='700' y='0' />
+    </g>
+
+    <g id='line40x50'>
+      <use xlink:href='#line40x10' x='  0' y='  0' />
+      <use xlink:href='#line40x10' x='  0' y='186.602540378444' />
+      <use xlink:href='#line40x10' x='  0' y='373.205080756888' />
+      <use xlink:href='#line40x10' x='  0' y='559.807621135332' />
+      <use xlink:href='#line40x10' x='  0' y='746.410161513776' />
+    </g>
+
+  </defs>
+
+  <!-- Use the final defined object. Note that we could have just included the last group here,
+       without just creating a single instance for the SVG body. -->
+
+  <use xlink:href='#line40x50' x='0' y='0' />
+
+  <!-- Here's the alternate SVG body -->
+
+  <!--
+  <use xlink:href='#line40x10' x='  0' y='  0' />
+  <use xlink:href='#line40x10' x='  0' y='186.602540378444' />
+  <use xlink:href='#line40x10' x='  0' y='373.205080756888' />
+  <use xlink:href='#line40x10' x='  0' y='559.807621135332' />
+  <use xlink:href='#line40x10' x='  0' y='746.410161513776' />
+  -->
+
+</svg>
