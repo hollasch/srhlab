@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+
+    <!-- Does not keep originating page in history. -->
+    <script>window.location.replace("http://example.com")</script>
+
+    <!-- Some browsers may ignore this, so have backup text. -->
+    <meta http-equiv="refresh" content="0; url=http://example.com/">
+
+    <!-- Simulates someone clicking on a link. -->
+    <script>window.location.href = "http://example.com"</script>
+
+</head>
