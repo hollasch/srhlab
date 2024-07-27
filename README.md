@@ -32,7 +32,7 @@ Subdirectories
 [cpp]:      cpp/README.md
 [cs]:       cs/
 [d3]:       d3/
-[html]:     html/
+[html]:     html/README.md
 [js]:       js/README.md
 [markdeep]: markdeep/
 [nmake]:    nmake/
