@@ -11,7 +11,8 @@ namespace fs = std::filesystem;
 using std::cout;
 
 int main () {
-    fs::path pathToShow("../../srhlab/cpp/build/debug/filesystem.exe");
+    //fs::path pathToShow("../../srhlab/cpp/build/debug/filesystem.exe");
+    fs::path pathToShow("C:/Windows/system.ini");
     cout << "fs::path(" << pathToShow << "):\n";
 
     cout << "    exists() = " << fs::exists(pathToShow) << "\n"
