@@ -19,10 +19,11 @@ Variables
 
 Std Library
 ------------
-- `ignore.cpp`   -- Usage & effects of `std::ignore` for suppressing unused parameter warnings
-- `format.cpp`   -- Examples of `std::format()` to format strings
-- `istream.cpp`  -- `std::istream `test (reads `istream-test.txt`)
-- `ostream.cpp`  -- `std::ostream` experiments
+- `ignore.cpp` -- Usage & effects of `std::ignore` for suppressing unused parameter warnings
+- `filesystem.cpp` -- The `std::filesystem` and related classes
+- `format.cpp` -- Examples of `std::format()` to format strings
+- `istream.cpp` -- `std::istream `test (reads `istream-test.txt`)
+- `ostream.cpp` -- `std::ostream` experiments
 - `variadic.cpp` -- Includes an example of functions that take an initializer list
 
 Std Containers
